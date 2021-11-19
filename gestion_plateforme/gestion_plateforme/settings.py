@@ -79,17 +79,25 @@ WSGI_APPLICATION = 'gestion_plateforme.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
             'read_default_file': str(PROJECT_ROOT / 'db_config_dev.cnf'),
         },
-        # 'NAME': 'gestion_plateforme',
-        # 'USER': 'root',
-        # 'PASSWORD': '',
-        # 'HOST': '127.0.0.1',
-        # 'PORT': '3306',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'sqlite': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'postgrees': {
+        'ENGINE': 'django.db.backends.postgrees',
+        'OPTIONS': {
+            'read_default_file': str(PROJECT_ROOT / 'db_config_dev.cnf'),
+        },
+        'NAME': 'gestion_plateforme',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
     }
 }
 
