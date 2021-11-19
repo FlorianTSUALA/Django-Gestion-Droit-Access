@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 
-class Compte(BaseUserManager):
+class CompteManager(BaseUserManager):
     """
     Custom user model manager where email is the unique identifiers
     for authentication instead of usernames.
