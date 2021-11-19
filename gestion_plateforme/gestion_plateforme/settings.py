@@ -90,9 +90,6 @@ DATABASES = {
     },
     'postgrees': {
         'ENGINE': 'django.db.backends.postgrees',
-        'OPTIONS': {
-            'read_default_file': str(PROJECT_ROOT / 'db_config_dev.cnf'),
-        },
         'NAME': 'gestion_plateforme',
         'USER': 'root',
         'PASSWORD': '',
