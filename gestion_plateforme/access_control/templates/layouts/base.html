@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -17,51 +18,50 @@
 <div class="wrapper">
 	<div id="loader"></div>
 
-
 	{% comment %} header {% endcomment %}
     {% include "layouts/header.html" %}
   
   <!-- Left side column. contains the logo and sidebar -->
-	{% comment %} vertical-sidebar {% endcomment %}
-    {% include "layouts/vertical-sidebar.html" %}
+	{% comment %} main-sidebar {% endcomment %}
+    {% include "layouts/main-sidebar.html" %}
+  
 
+  
   <!-- Content Wrapper. Contains page content -->
         {% block content %} {% endblock %}
-
   <!-- /.content-wrapper -->
- 
-   {% comment %} footer {% endcomment %}
-    {% block footer %}
-        {% include 'layouts/footer.html' %}
-    {% endblock %}
 
-  <!-- Control Sidebar -->
-	{% comment %} control-sidebar {% endcomment %}
-    {% include 'layouts/control-sidebar.html' %}
-
-  <!-- /.control-sidebar -->
+ 	{% comment %} footer {% endcomment %}
+    {% include "layouts/footer.html" %}
   
-  <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
-</div>
 
+    {% comment %} control-sidebar {% endcomment %}
+    {% include "layouts/control-sidebar.html" %}
+  
+</div>
 <!-- ./wrapper -->
 	
 	<!-- ./side demo panel -->
-	
-	{% comment %} toolbar {% endcomment %}
-    {% include 'includes/toolbar.html' %}
+	{% comment %} sticky-toolbar {% endcomment %}
+    {% include "includes/sticky-toolbar.html" %}
 
 	<!-- Sidebar -->
 	
-	{% comment %} chat box include {% endcomment %}
-    {% include 'includes/chat-box.html' %}
-    
+
+	{% comment %} chat-box-body {% endcomment %}
+    {% include "includes/chat-box-body.html" %}
+  
 	<!-- Page Content overlay -->
+	
+	
+    
+	{% comment %} footer-script {% endcomment %}
+    {% include "layouts/footer-script.html" %}
+  
 	
 	{% block page_scripts %} {% endblock %}
 	{% block javascript %} {% endblock %}
-
+	
 
 </body>
 </html>

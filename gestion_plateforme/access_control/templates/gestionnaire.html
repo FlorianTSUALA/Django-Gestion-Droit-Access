@@ -3,14 +3,14 @@
 
 {% block title %} Gestion des gestionnaires {% endblock %}
 
+{% block javascript %}
+<script src="{% static 'custom/js/gestionnaire.js' %}"></script>
+{% endblock %}
 
 {% block content %} 
 
-	{% block javascript %}
-	<script src="{% static 'custom/js/gestionnaire.js' %}"></script>
-	{% endblock %}
-
-
+	  <div class="content-wrapper">
+	  <div class="container-full">
 		<!-- Content Header (Page header) -->
 		<div class="content-header">
 			<div class="d-flex align-items-center">
@@ -33,29 +33,29 @@
 		<!-- Main content -->
 		<section class="content">
 
-			<div class="row">
-				<div class="col-12">
+		  <div class="row">
+			  <div class="col-12">
 				<div class="box">
-					<div class="box-body">
+				  <div class="box-body">
 					<div class="table-responsive">
 						<table id="productorder" class="table table-hover no-wrap product-order" data-page-size="10">
 							<thead>
 								<tr>
-										<th>Customer</th>
-										<th>Order ID</th>
-										<th>Photo</th>
-										<th>Product</th>
-										<th>Quantity</th>
-										<th>Date</th>
-										<th>Status</th>
-										<th>Actions</th>
+									 <th>Customer</th>
+									 <th>Order ID</th>
+									 <th>Photo</th>
+									 <th>Product</th>
+									 <th>Quantity</th>
+									 <th>Date</th>
+									 <th>Status</th>
+									 <th>Actions</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
 									<td>Maical Roy</td>
 									<td>#12485791</td>
-									<td><img src="../images/product/product-1.png" alt="product" width="50"></td>
+									<td><img src="{% static 'template/images/product/product-1.png'%}" alt="product" width="50"></td>
 									<td>Product Title</td>
 									<td>17</td>
 									<td>24-01-2018</td>
@@ -68,17 +68,20 @@
 										</a>
 									</td>
 								</tr>
-			
+	
+
 							</tbody>						
 						</table>
 					</div>
-					</div>
+				  </div>
 				</div>
-				</div>		  
-			</div>
+			  </div>		  
+		  </div>
 
 		</section>
 		<!-- /.content -->
+	  </div>
+  </div>
 
 {% endblock %}
 
