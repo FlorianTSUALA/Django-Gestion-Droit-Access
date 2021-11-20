@@ -15,3 +15,16 @@ class CompteChangeForm(UserChangeForm):
     class Meta:
         model = Compte
         fields = ('username', 'telephone', 'email', 'name')
+
+from reservation.models import Compagnie
+
+
+class GestionnaireForm(forms.ModelForm):
+    class Meta:
+        model = Gestionnaire
+        fields = (
+            'compte',
+            'apropros',
+            'residence',
+            'date_naissance',
+        )
