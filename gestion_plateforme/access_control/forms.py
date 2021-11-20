@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-
-from .models import Compte
+from django import forms
+from .models import Compte,Gestionnaire
 
 
 class CompteCreationForm(UserCreationForm):
@@ -16,7 +16,6 @@ class CompteChangeForm(UserChangeForm):
         model = Compte
         fields = ('username', 'telephone', 'email', 'name')
 
-from reservation.models import Compagnie
 
 
 class GestionnaireForm(forms.ModelForm):

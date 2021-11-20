@@ -3,8 +3,8 @@ from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
-from reservation.models import Gestionnaire
-from dashboard.forms import GestionnaireForm
+from access_control.models import Gestionnaire
+from access_control.forms import GestionnaireForm
 # Create your views here.
 
 def gestionnaire_metadata(key = None):

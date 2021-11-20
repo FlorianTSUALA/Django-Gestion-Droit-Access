@@ -1,1 +1,1 @@
-from .compagnie import *
+from .gestionnnaire import *
