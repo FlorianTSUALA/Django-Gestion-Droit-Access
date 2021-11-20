@@ -16,6 +16,10 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 PROJECT_ROOT = Path(__file__).resolve().parent
 
+#Authentification
+LOGOUT_REDIRECT_URL = '/accounts/profile/'
+LOGIN_URL = '/accounts/login/'
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -83,22 +87,22 @@ DATABASES = {
         'OPTIONS': {
             'read_default_file': str(PROJECT_ROOT / 'db_config_dev.cnf'),
         },
-    },
-    'sqlite': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    },
-    'postgrees': {
-        'ENGINE': 'django.db.backends.postgrees',
-        'OPTIONS': {
-            'read_default_file': str(PROJECT_ROOT / 'db_config_dev.cnf'),
-        },
-        'NAME': 'gestion_plateforme',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
     }
+    # 'sqlite': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # },
+    # 'postgrees': {
+    #     'ENGINE': 'django.db.backends.postgrees',
+    #     'OPTIONS': {
+    #         'read_default_file': str(PROJECT_ROOT / 'db_config_dev.cnf'),
+    #     },
+    #     'NAME': 'gestion_plateforme',
+    #     'USER': 'root',
+    #     'PASSWORD': '',
+    #     'HOST': '127.0.0.1',
+    #     'PORT': '3306',
+    # }
 }
 
 
@@ -124,7 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr-FR'
 
 TIME_ZONE = 'UTC'
 

@@ -32,3 +32,21 @@ class Compte(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
+
+
+class Gestionnaire(models.Model):
+    compte = models.OneToOneField(Compte, on_delete=models.CASCADE)
+    apropros = models.TextField(max_length=500, blank=True)
+    residence = models.CharField(max_length=30, blank=True)
+    date_naissance = models.DateField(null=True, blank=True)
+
+class Developpeur(models.Model):
+    compte = models.OneToOneField(Compte, on_delete=models.CASCADE)
+    apropros = models.TextField(max_length=500, blank=True)
+    residence = models.CharField(max_length=30, blank=True)
+    date_naissance = models.DateField(null=True, blank=True)
+
+class Profile(models.Model):
+    gestionnaire = models.OneToOneField(Gestionnaire, on_delete=models.CASCADE)
+    libelle = models.CharField(max_length=30, blank=True)
+    description = models.TextField(max_length=500, blank=True)
