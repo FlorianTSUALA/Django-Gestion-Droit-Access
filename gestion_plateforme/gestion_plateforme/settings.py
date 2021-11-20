@@ -90,16 +90,13 @@ DATABASES = {
         'OPTIONS': {
             'read_default_file': str(PROJECT_ROOT / 'db_config_dev.cnf'),
         },
-    }
+    },
     # 'sqlite': {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # },
     # 'postgrees': {
     #     'ENGINE': 'django.db.backends.postgrees',
-    #     'OPTIONS': {
-    #         'read_default_file': str(PROJECT_ROOT / 'db_config_dev.cnf'),
-    #     },
     #     'NAME': 'gestion_plateforme',
     #     'USER': 'root',
     #     'PASSWORD': '',
