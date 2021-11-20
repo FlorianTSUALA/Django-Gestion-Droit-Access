@@ -14,13 +14,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path, include
-from dashboard import views
+from access_control import views
 
 
 urlpatterns = [
-    # path('',  views.accueil, name='accueil'),
-    path('access_control/',  views.access_control, name='access_control'),
-    path('access_control/create/',  views.access_control_create, name='access_control_create'),
-    path('access_control/<int:pk>/update/',  views.access_control_update, name='access_control_update'),
-    path('access_control/<int:pk>/delete/',  views.access_control_delete, name='access_control_delete'),
+    #account access
+    
+
+
+
+
+    # # # #     Gestionnaire
+    #path('',  views.accueil, name='accueil'),
+    path('gestionnaire/',  views.gestionnaire, name='gestionnaire'),
+    path('gestionnaire/create/',  views.gestionnaire_create, name='gestionnaire_create'),
+    path('gestionnaire/<int:pk>/update/',  views.gestionnaire_update, name='gestionnaire_update'),
+    path('gestionnaire/<int:pk>/delete/',  views.gestionnaire_delete, name='gestionnaire_delete'),
 ]

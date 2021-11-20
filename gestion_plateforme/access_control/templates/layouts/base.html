@@ -1,52 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="fr">
 <head>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title> {% block title %} {% endblock %} </title>
-    <meta name="description" content="Panneau d'administration du syteme gestion de compagnie aerienne" />
+    <meta name="description" content="Panneau d'administration des dreoit d'access" />
     
     {% include "layouts/head.html" %}
 
+
 </head>
 
-<body>
-    <!-- Preloader -->
-    {% include 'layouts/preloader.html' %}
-    <!-- /Preloader -->
+<body class="hold-transition light-skin sidebar-mini theme-primary fixed">
 	
-		<!-- HK Wrapper -->
-	<div class="hk-wrapper hk-vertical-nav">
+<div class="wrapper">
+	<div id="loader"></div>
 
-        <!-- Top Navbar -->
-        {% include 'layouts/topnavbar.html' %}
-        <!-- /Top Navbar -->
 
-        <!-- Vertical Nav -->
-        {% include 'layouts/vertical_nav.html' %} 
-        <!-- /Vertical Nav -->
+	{% comment %} header {% endcomment %}
+    {% include "layouts/header.html" %}
+  
+  <!-- Left side column. contains the logo and sidebar -->
+	{% comment %} vertical-sidebar {% endcomment %}
+    {% include "layouts/vertical-sidebar.html" %}
 
-        <!-- Setting Panel -->
-        {% include 'layouts/setting_panel.html' %}
-        <!-- /Setting Panel -->
-
-        <!-- Main Content -->
+  <!-- Content Wrapper. Contains page content -->
         {% block content %} {% endblock %}
 
-        {% block footer %}
-            {% include 'layouts/footer.html' %}
-        {% endblock %}
+  <!-- /.content-wrapper -->
+ 
+   {% comment %} footer {% endcomment %}
+    {% block footer %}
+        {% include 'layouts/footer.html' %}
+    {% endblock %}
 
-        <!-- /Main Content -->
+  <!-- Control Sidebar -->
+	{% comment %} control-sidebar {% endcomment %}
+    {% include 'layouts/control-sidebar.html' %}
 
-    </div>
-    <!-- /HK Wrapper -->
+  <!-- /.control-sidebar -->
+  
+  <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+</div>
 
-    {% include 'layouts/footer-script.html' %}
+<!-- ./wrapper -->
+	
+	<!-- ./side demo panel -->
+	
+	{% comment %} toolbar {% endcomment %}
+    {% include 'includes/toolbar.html' %}
+
+	<!-- Sidebar -->
+	
+	{% comment %} chat box include {% endcomment %}
+    {% include 'includes/chat-box.html' %}
+    
+	<!-- Page Content overlay -->
+	
 	{% block page_scripts %} {% endblock %}
 	{% block javascript %} {% endblock %}
-    
-</body>
 
+
+</body>
 </html>

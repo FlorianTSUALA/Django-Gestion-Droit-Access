@@ -3,13 +3,13 @@ from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
-from reservation.models import Compagnie
-from dashboard.forms import CompagnieForm
+from reservation.models import Gestionnaire
+from dashboard.forms import GestionnaireForm
 # Create your views here.
 
-def compagnie_metadata(key = None):
+def gestionnaire_metadata(key = None):
 
-    model = 'compagnie'
+    model = 'gestionnaire'
     data = {
         'model': model,
         'genre': 'F',
@@ -22,67 +22,66 @@ def compagnie_metadata(key = None):
         'path_form_create': 'partials/entity/form_create.html',
         'path_form_delete': 'partials/entity/form_delete.html',
     }
-    genre = 'F'
-    print(genre)
+    genre = 'M'
     data['title_modal_create'] = 'Creer ' +  ('une nouvelle', 'un nouveau')[ genre == 'F']  + f' {model}'
 
     if key is None:
         return data
     return data.get(key, '')
 
-def compagnie(request):
+def gestionnaire(request):
     
-    items = Compagnie.objects.all()
+    items = Gestionnaire.objects.all()
     
-    html_data = compagnie_metadata()
+    html_data = gestionnaire_metadata()
     html_data['data'] = items
     html_data['url_create_full'] = reverse(html_data['url_create'])
     
-    return render(request, 'compagnie.html', html_data)
+    return render(request, 'gestionnaire.html', html_data)
 
 
-def save_compagnie_form(request, form, template_name, template_data=None):
+def save_gestionnaire_form(request, form, template_name, template_data=None):
     data = dict()
     if request.method == 'POST':
         if form.is_valid():
             form.save()
             data['form_is_valid'] = True
-            items = Compagnie.objects.all()
-            data['html_compagnie_list'] = render_to_string(compagnie_metadata('path_table_body'), { 'data': items })
+            items = gestionnaire.objects.all()
+            data['html_gestionnaire_list'] = render_to_string(gestionnaire_metadata('path_table_body'), { 'data': items })
         else:
             data['form_is_valid'] = False
     template_data['form'] = form
     data['html_form'] = render_to_string(template_name, template_data, request=request)
     return JsonResponse(data)
 
-def compagnie_create(request):
-    data = compagnie_metadata()
+def gestionnaire_create(request):
+    data = gestionnaire_metadata()
     
     print(data['title_modal_create'])
     if request.method == 'POST':
-        form = CompagnieForm(request.POST)
+        form = gestionnaireForm(request.POST)
     else:
-        form = CompagnieForm()
+        form = gestionnaireForm()
     
-    return save_compagnie_form(request, form, compagnie_metadata('path_form_create'), data)
+    return save_gestionnaire_form(request, form, gestionnaire_metadata('path_form_create'), data)
 
-def compagnie_update(request, pk):
-    compagnie = get_object_or_404(Compagnie, pk=pk)
+def gestionnaire_update(request, pk):
+    gestionnaire = get_object_or_404(gestionnaire, pk=pk)
     if request.method == 'POST':
-        form = CompagnieForm(request.POST, instance=compagnie)
+        form = gestionnaireForm(request.POST, instance=gestionnaire)
     else:
-        form = CompagnieForm(instance=compagnie)
-    return save_compagnie_form(request, form, compagnie_metadata('path_form_update'))
+        form = gestionnaireForm(instance=gestionnaire)
+    return save_gestionnaire_form(request, form, gestionnaire_metadata('path_form_update'))
 
-def compagnie_delete(request, pk):
-    compagnie = get_object_or_404(Compagnie, pk=pk)
+def gestionnaire_delete(request, pk):
+    gestionnaire = get_object_or_404(gestionnaire, pk=pk)
     data = dict()
     if request.method == 'POST':
-        compagnie.delete()
+        gestionnaire.delete()
         data['form_is_valid'] = True  # This is just to play along with the existing code
-        items = Compagnie.objects.all()
-        data['html_compagnie_list'] = render_to_string(compagnie_metadata('path_table_body'), { 'data': items })
+        items = gestionnaire.objects.all()
+        data['html_gestionnaire_list'] = render_to_string(gestionnaire_metadata('path_table_body'), { 'data': items })
     else:
-        context = {'compagnie': compagnie}
-        data['html_form'] = render_to_string(compagnie_metadata('path_form_delete'), context, request=request, )
+        context = {'gestionnaire': gestionnaire}
+        data['html_form'] = render_to_string(gestionnaire_metadata('path_form_delete'), context, request=request, )
     return JsonResponse(data)
