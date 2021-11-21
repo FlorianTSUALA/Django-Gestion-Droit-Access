@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -6,16 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../images/favicon.ico">
+    <link rel="icon" href="{% static 'template/images/favicon.ico'%}">
 
     <title>EduAdmin - Log in </title>
   
 	<!-- Vendors Style-->
-	<link rel="stylesheet" href="css/vendors_css.css">
+	<link rel="stylesheet" href="{% static 'template/css/vendors_css.css'%}">
 	  
 	<!-- Style-->  
-	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="css/skin_color.css">	
+	<link rel="stylesheet" href="{% static 'template/css/style.css'%}">
+	<link rel="stylesheet" href="{% static 'template/css/skin_color.css'%}">	
 
 </head>
 	
@@ -29,21 +30,22 @@
 					<div class="col-lg-5 col-md-5 col-12">
 						<div class="bg-white rounded10 shadow-lg">
 							<div class="content-top-agile p-20 pb-0">
-								<h2 class="text-primary">Let's Get Started</h2>
-								<p class="mb-0">Sign in to continue to WebkitX.</p>							
+								<h2 class="text-primary">WELCOME</h2>
+								<p class="mb-0">Page de connexion.</p>							
 							</div>
 							<div class="p-40">
-								<form action="index.html" method="post">
+								<form method="post" action="{% url 'login' %}" >
+									{% csrf_token %}
 									<div class="form-group">
 										<div class="input-group mb-3">
 											<span class="input-group-text bg-transparent"><i class="ti-user"></i></span>
-											<input type="text" class="form-control ps-15 bg-transparent" placeholder="Username">
+											<input type="text" class="form-control ps-15 bg-transparent" placeholder="Username" name="username" required>
 										</div>
 									</div>
 									<div class="form-group">
 										<div class="input-group mb-3">
 											<span class="input-group-text  bg-transparent"><i class="ti-lock"></i></span>
-											<input type="password" class="form-control ps-15 bg-transparent" placeholder="Password">
+											<input type="password" class="form-control ps-15 bg-transparent" placeholder="Password" name="password" required>
 										</div>
 									</div>
 									  <div class="row">
@@ -87,9 +89,9 @@
 
 
 	<!-- Vendor JS -->
-	<script src="js/vendors.min.js"></script>
-	<script src="js/pages/chat-popup.js"></script>
-    <script src="../assets/icons/feather-icons/feather.min.js"></script>	
+	<script src="{% static 'template/js/vendors.min.js'%}"></script>
+	<script src="{% static 'template/js/pages/chat-popup.js'%}"></script>
+    <script src="{% static 'template/assets/icons/feather-icons/feather.min.js'%}"></script>	
 
 </body>
 </html>

@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.urls import path, include
 from access_control import views
-from access_control.views import gestionnaire
+from access_control.views import gestionnaire,auth_view
 
 
 urlpatterns = [
@@ -31,4 +31,7 @@ urlpatterns = [
     path('gestionnaire/create/',  views.gestionnaire_create, name='gestionnaire_create'),
     path('gestionnaire/<int:pk>/update/',  views.gestionnaire_update, name='gestionnaire_update'),
     path('gestionnaire/<int:pk>/delete/',  views.gestionnaire_delete, name='gestionnaire_delete'),
+    path('register/',  views.register, name='register'),
+    path('login/',  views.login, name='login'),
+
 ]
