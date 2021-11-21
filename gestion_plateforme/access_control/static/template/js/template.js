@@ -1145,9 +1145,9 @@ $('.demo-panel-bx').slimScroll({
 			});
 		var sparkResize;
 	
-        $("#chat-circle, #chat-box-toggle, #chat-popup").click(function(){
-            $("#chat-box-body").toggleClass("show");
-          });
+        // $("#chat-circle, #chat-box-toggle, #chat-popup").click(function(){
+        //     $("#chat-box-body").toggleClass("show");
+        //   });
 	
 }(jQuery) // End of use strict
 

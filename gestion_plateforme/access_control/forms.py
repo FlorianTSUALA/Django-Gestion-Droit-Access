@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django import forms
 from .models import Compte,Gestionnaire
-
+import datetime
 
 class CompteCreationForm(UserCreationForm):
 
@@ -21,6 +21,7 @@ class CompteChangeForm(UserChangeForm):
 class GestionnaireForm(forms.ModelForm):
     class Meta:
         model = Gestionnaire
+        date_naissance = forms.DateField(initial=datetime.date.today)
         fields = (
             'compte',
             'apropros',
