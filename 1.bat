@@ -1,3 +1,1 @@
-.\env\Scripts\activate
-cd gestion_plateforme
-py manage.py runserver
+.\env\Scripts\activate & cd gestion_plateforme & py manage.py runserver

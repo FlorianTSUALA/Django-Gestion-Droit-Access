@@ -49,17 +49,17 @@
 	
 
 	{% comment %} chat-box-body {% endcomment %}
-    {% include "includes/chat-box-body.html" %}
-  
+    {% comment %} {% include "includes/chat-box-body.html" %} {% endcomment %}
+  	{% block floating-button %} {% endblock %}
 	<!-- Page Content overlay -->
 	
-	
+
+	{% block page_scripts %} 
+        {% include "layouts/footer-script.html" %}
+    {% endblock %}
     
-	{% comment %} footer-script {% endcomment %}
-    {% include "layouts/footer-script.html" %}
-  
-	
-	{% block page_scripts %} {% endblock %}
+    
+    
 	{% block javascript %} {% endblock %}
 	
 
