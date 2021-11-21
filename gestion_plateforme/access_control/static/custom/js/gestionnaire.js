@@ -15,6 +15,8 @@ $(function () {
             },
             success: function (data) {
               $("#modal-gestionnaire .modal-content").html(data.html_form)
+              $("#modal-gestionnaire .modal-content .select2").select2();
+              console.log('Yes Inset done')
             }
         })
     }
@@ -47,6 +49,8 @@ $(function () {
 
     $("#chat-circle, #chat-box-toggle, #chat-popup").click(function(){
       load_form(this)
+     
+      
       // $("#chat-box-body").toggleClass("show");
     });
 
