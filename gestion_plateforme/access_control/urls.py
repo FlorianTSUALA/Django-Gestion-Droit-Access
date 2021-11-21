@@ -33,5 +33,6 @@ urlpatterns = [
     path('gestionnaire/<int:pk>/delete/',  views.gestionnaire_delete, name='gestionnaire_delete'),
     path('register/',  views.register, name='register'),
     path('login/',  views.login, name='login'),
+    path('logout/',  views.logout, name='logout'),
 
 ]

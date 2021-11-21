@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.shortcuts import render, get_object_or_404
@@ -6,6 +6,7 @@ from django.urls import reverse
 from access_control.models import Gestionnaire, Compte
 from access_control.forms import GestionnaireForm
 import hashlib, binascii
+from django.contrib.auth import authenticate, login, logout
 
 
 def register(request):
@@ -52,10 +53,10 @@ def login(request):
         print(passwo.decode("utf-8"))
         if str(passwo)== str(utilisateur.password):
             print('bravo jaures')
+            return redirect('gestionnaire')
         # if user is not None:
         #     login(request,user)
         #     print(user.is_superuser)
-        #     return redirect('home')
         else:
             # messages.error(request, "erreur t'authentification ")
             print('pas de permission')
@@ -64,5 +65,7 @@ def login(request):
         pass
         return render(request, 'auth/auth_login.html')
 
-
+def logout_block(request):
+    logout(request)
+    return redirect('login')
  
