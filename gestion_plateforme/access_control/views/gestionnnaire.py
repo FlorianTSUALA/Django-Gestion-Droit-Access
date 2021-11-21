@@ -59,18 +59,18 @@ def gestionnaire_create(request):
     
     print(data['title_modal_create'])
     if request.method == 'POST':
-        form = gestionnaireForm(request.POST)
+        form = GestionnaireForm(request.POST)
     else:
-        form = gestionnaireForm()
+        form = GestionnaireForm()
     
     return save_gestionnaire_form(request, form, gestionnaire_metadata('path_form_create'), data)
 
 def gestionnaire_update(request, pk):
     gestionnaire = get_object_or_404(gestionnaire, pk=pk)
     if request.method == 'POST':
-        form = gestionnaireForm(request.POST, instance=gestionnaire)
+        form = GestionnaireForm(request.POST, instance=gestionnaire)
     else:
-        form = gestionnaireForm(instance=gestionnaire)
+        form = GestionnaireForm(instance=gestionnaire)
     return save_gestionnaire_form(request, form, gestionnaire_metadata('path_form_update'))
 
 def gestionnaire_delete(request, pk):
