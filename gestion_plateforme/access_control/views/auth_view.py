@@ -7,6 +7,8 @@ from access_control.models import Gestionnaire, Compte
 from access_control.forms import GestionnaireForm
 import hashlib, binascii
 from django.contrib.auth import authenticate, login, logout
+from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.models import User, Permission
 
 
 def register(request):
@@ -33,6 +35,7 @@ def register(request):
                 password = passwo
                 )
            compte.save()
+           return redirect('login')
 
             # messages.error(request, 'creation de compte échouée')
             # render(request,'users/register.html',{'form':form})
@@ -46,21 +49,20 @@ def login(request):
     if request.method == "POST":
         username = request.POST.get('username')
         pwd = request.POST.get('password')
-        utilisateur = Compte.objects.get(username=username)
+        try:
+            utilisateur = Compte.objects.get(username=username)
+        except ObjectDoesNotExist:
+            message = 'Votre identifiant ou votre mot de passe est incorrect'
+            return render(request,'auth/auth_login.html',{'message':message})
         dk = hashlib.pbkdf2_hmac('sha256', str.encode(pwd), b'salt', 10000)
         passwo = binascii.hexlify(dk)
         print(utilisateur.password)
         print(passwo.decode("utf-8"))
         if str(passwo)== str(utilisateur.password):
-            print('bravo jaures')
             return redirect('gestionnaire')
-        # if user is not None:
-        #     login(request,user)
-        #     print(user.is_superuser)
         else:
-            # messages.error(request, "erreur t'authentification ")
-            print('pas de permission')
-            # return render(request, 'users/login.html',{'form':form})
+            message = 'Votre identifiant ou votre mot de passe est incorrect'
+            return render(request,'auth/auth_login.html',{'message':message})
     else:
         pass
         return render(request, 'auth/auth_login.html')
@@ -68,4 +70,10 @@ def login(request):
 def logout_block(request):
     logout(request)
     return redirect('login')
- 
+
+def liste_permission(request):
+    perm = Permission.objects.all()
+    for p in perm:
+        print(p.name +' '+ p.codename)
+        # print(p.codename)
+    return render(request,'auth/auth_register.html')
