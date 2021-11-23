@@ -12,9 +12,13 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+import select2.fields
+import select2.models
+
 from .managers import CompteManager
 
 # Create your models here.
+
 class Compte(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True)
     name = models.CharField(max_length=70)
@@ -36,7 +40,8 @@ class Compte(AbstractBaseUser, PermissionsMixin):
 
 
 class Gestionnaire(models.Model):
-    compte = models.OneToOneField(Compte, on_delete=models.CASCADE)
+    # compte = models.OneToOneField(Compte, on_delete=models.CASCADE)
+    compte = select2.fields.ForeignKey(Compte,overlay="Choisir un compte...", on_delete=models.CASCADE)
     apropros = models.TextField(max_length=500, blank=True)
     residence = models.CharField(max_length=30, blank=True)
     date_naissance = models.DateField(null=True, blank=True)
