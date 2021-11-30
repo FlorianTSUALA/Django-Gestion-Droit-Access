@@ -6,8 +6,6 @@ from django.urls import reverse
 from access_control.models import Gestionnaire
 from access_control.forms import GestionnaireForm
 
-
-
 def gestionnaire_metadata(key = None):
 
     model = 'gestionnaire'
@@ -31,13 +29,12 @@ def gestionnaire_metadata(key = None):
     return data.get(key, '')
 
 def gestionnaire(request):
-    
     items = Gestionnaire.objects.all()
     
     html_data = gestionnaire_metadata()
     html_data['data'] = items
     html_data['url_create_full'] = reverse(html_data['url_create'])
-    print("ok")
+    
     return render(request, 'gestionnaire.html', html_data)
 
 

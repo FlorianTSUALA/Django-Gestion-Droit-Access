@@ -15,8 +15,9 @@ $(function () {
             },
             success: function (data) {
               $("#modal-gestionnaire .modal-content").html(data.html_form)
-              $("#modal-gestionnaire .modal-content .select2").select2();
-              console.log('Yes Inset done')
+                $("#modal-gestionnaire .select2").select2({
+                  dropdownParent: $("#modal-gestionnaire")
+                });
             }
         })
     }
@@ -45,7 +46,7 @@ $(function () {
 
     //CREATE
     $("#modal-gestionnaire").on("submit", ".js-gestionnaire-create-form", save_form)
-    $(".js-create-gestionnaire").click(load_form)
+    $(".js-create-entity").click(load_form)
 
     $("#chat-circle, #chat-box-toggle, #chat-popup").click(function(){
       load_form(this)
@@ -59,5 +60,6 @@ $(function () {
     //DELETE
     $("#gestionnaire-table").on("click", ".js-delete-gestionnaire", load_form)
     $("#modal-gestionnaire").on("submit", ".js-gestionnaire-delete-form", save_form)
+
 
 });

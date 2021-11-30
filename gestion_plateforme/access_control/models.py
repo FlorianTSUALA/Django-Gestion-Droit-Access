@@ -14,9 +14,6 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-# import select2.fields
-# import select2.models
-
 from .managers import CompteManager
 
 # Create your models here.
@@ -43,7 +40,6 @@ class Compte(AbstractBaseUser, PermissionsMixin):
 
 class Gestionnaire(models.Model):
     compte = models.OneToOneField(Compte, on_delete=models.CASCADE)
-    # compte = select2.fields.ForeignKey(Compte,overlay="Choisir un compte...", on_delete=models.CASCADE)
     apropros = models.TextField(max_length=500, blank=True)
     residence = models.CharField(max_length=30, blank=True)
     date_naissance = models.DateField(null=True, blank=True)
@@ -55,9 +51,12 @@ class Developpeur(models.Model):
     date_naissance = models.DateField(null=True, blank=True)
 
 class Profile(Group):
- 
+
     class Meta:
         proxy = True
+    
+    def __str__(self):
+        return self.name
 
 class Permission(Permission):
 
@@ -65,4 +64,7 @@ class Permission(Permission):
         proxy = True
     
     def __str__(self):
-        return self.name.upper()
+        name = self.name.replace('Can', 'Peut')
+        print("name")
+        print(name)
+        return name

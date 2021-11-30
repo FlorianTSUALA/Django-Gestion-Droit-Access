@@ -11,7 +11,10 @@ $(function () {
             $("#modal-entity").modal("show")
             },
             success: function (data) {
-            $("#modal-entity .modal-content").html(data.html_form)
+              $("#modal-entity .modal-content").html(data.html_form)
+              $("#modal-entity .select2").select2({
+                dropdownParent: $("#modal-entity")
+              });
             }
         })
     }
