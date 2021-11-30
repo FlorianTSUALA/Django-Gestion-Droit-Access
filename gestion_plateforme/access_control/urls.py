@@ -20,15 +20,11 @@ from access_control.views import gestionnaire,auth_view
 
 urlpatterns = [
     #account access
-    
-
-
-
 
     # # # #     Gestionnaire
     #path('',  views.accueil, name='accueil'),
     path('gestionnaire/',  views.gestionnaire, name='gestionnaire'),
-    path('gestionnaire/create/',  views.gestionnaire_create, name='gestionnaire_create'),
+    path('gestionnaire/gestionnaire_create/',  views.gestionnaire_create, name='gestionnaire_create'),
     path('gestionnaire/<int:pk>/update/',  views.gestionnaire_update, name='gestionnaire_update'),
     path('gestionnaire/<int:pk>/delete/',  views.gestionnaire_delete, name='gestionnaire_delete'),
     path('register/',  views.register, name='register'),

@@ -41,6 +41,7 @@ def register(request):
             # render(request,'users/register.html',{'form':form})
     else:
         return render(request, 'auth/auth_register.html')
+        
     return render(request,'auth/auth_register.html')
 
 
@@ -64,7 +65,6 @@ def login(request):
             message = 'Votre identifiant ou votre mot de passe est incorrect'
             return render(request,'auth/auth_login.html',{'message':message})
     else:
-        pass
         return render(request, 'auth/auth_login.html')
 
 def logout_block(request):

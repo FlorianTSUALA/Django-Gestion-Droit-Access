@@ -5,7 +5,8 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from access_control.models import Gestionnaire
 from access_control.forms import GestionnaireForm
-# Create your views here.
+
+
 
 def gestionnaire_metadata(key = None):
 
@@ -36,22 +37,24 @@ def gestionnaire(request):
     html_data = gestionnaire_metadata()
     html_data['data'] = items
     html_data['url_create_full'] = reverse(html_data['url_create'])
-    
+    print("ok")
     return render(request, 'gestionnaire.html', html_data)
 
 
 def save_gestionnaire_form(request, form, template_name, template_data=None):
-    data = dict()
+    data = gestionnaire_metadata()
     if request.method == 'POST':
         if form.is_valid():
             form.save()
             data['form_is_valid'] = True
-            items = gestionnaire.objects.all()
+            items = Gestionnaire.objects.all()
             data['html_gestionnaire_list'] = render_to_string(gestionnaire_metadata('path_table_body'), { 'data': items })
         else:
             data['form_is_valid'] = False
     template_data['form'] = form
+    # html_data = gestionnaire_metadata()
     data['html_form'] = render_to_string(template_name, template_data, request=request)
+    print("data", data)
     return JsonResponse(data)
 
 def gestionnaire_create(request):
@@ -75,11 +78,11 @@ def gestionnaire_update(request, pk):
 
 def gestionnaire_delete(request, pk):
     gestionnaire = get_object_or_404(gestionnaire, pk=pk)
-    data = dict()
+    data = gestionnaire_metadata()
     if request.method == 'POST':
         gestionnaire.delete()
         data['form_is_valid'] = True  # This is just to play along with the existing code
-        items = gestionnaire.objects.all()
+        items = Gestionnaire.objects.all()
         data['html_gestionnaire_list'] = render_to_string(gestionnaire_metadata('path_table_body'), { 'data': items })
     else:
         context = {'gestionnaire': gestionnaire}

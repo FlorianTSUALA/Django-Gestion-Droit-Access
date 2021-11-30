@@ -4,8 +4,7 @@ from .models import Compte,Gestionnaire
 import datetime
 from django.contrib.admin import widgets
 from django.forms.widgets import NumberInput
-
-import select2.fields
+# import select2.fields
 
 class CompteCreationForm(UserCreationForm):
 
@@ -26,7 +25,7 @@ class GestionnaireForm(forms.ModelForm):
 
     class Meta:
         model = Gestionnaire
-        date_naissance = select2.fields.ChoiceField( choices=Compte.objects.as_choices(), overlay="Choisir un compte...")
+        # date_naissance = select2.fields.ChoiceField( choices=Compte.objects.all(), overlay="Choisir un compte...")
         compte = forms.ChoiceField( widget=forms.Select(attrs={'class': 'form-control select2'}) )
         # date_naissance = forms.DateField(initial=datetime.date.today)
         # date_naissance = forms.DateField(widget=NumberInput(attrs={'type': 'date'}))
@@ -60,7 +59,9 @@ class GestionnaireForm(forms.ModelForm):
             )
             if field == 'compte':
                 self.fields[str(field)].widget.attrs.update(
-                {'class': 'form-control select2'}
+                    {
+                        'class': 'form-control select2'
+                    }
                 )
                 print('Yess ')
                 print(self.fields[str(field)].widget.attrs)

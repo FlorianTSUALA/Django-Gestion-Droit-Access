@@ -49,8 +49,6 @@ $(function () {
 
     $("#chat-circle, #chat-box-toggle, #chat-popup").click(function(){
       load_form(this)
-     
-      
       // $("#chat-box-body").toggleClass("show");
     });
 
