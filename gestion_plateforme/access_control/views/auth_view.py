@@ -1,14 +1,15 @@
+from django.contrib.auth.models import Group
 from django.shortcuts import render,redirect
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
-from access_control.models import Gestionnaire, Compte
+from access_control.models import Gestionnaire, Compte,Permission
 from access_control.forms import GestionnaireForm
 import hashlib, binascii
 from django.contrib.auth import authenticate, login, logout
 from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.auth.models import User, Permission
+# from django.contrib.auth.models import User, Permission
 
 
 def register(request):
@@ -70,9 +71,46 @@ def login(request):
 def logout_block(request):
     logout(request)
     return redirect('login')
-
+# Liste de permissions 
 def liste_permission(request):
     perm = Permission.objects.all()
     for p in perm:
         print(p.name +' '+ p.codename)
     return render(request,'auth/auth_register.html')
+
+# Liste de group
+def liste_group(request):
+    group = Group.objects.all()
+    return render(request,'auth/liste_group.html',{'group':group})
+
+# Add Group
+
+def ajouter_group(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        perm = Group(
+            name =  name
+        )
+        perm.save()
+    else:
+        return render(request,'permissions.html')
+    return render(request,'permissions.html')
+
+def permission(request):
+    return render(request,'permission.html')
+
+def ajourter_permission(request):
+    if request.method == "POST":
+        libele = request.POST.get('libele')
+        perm = Permission(
+            libelle =  libele
+        )
+        perm.save()
+    else:
+        return render(request,'permissions.html')
+    return render(request,'permissions.html')
+
+def delete_group(request,pk):
+    group = Group.objects.get(id=pk)
+    group.delete()
+    return 

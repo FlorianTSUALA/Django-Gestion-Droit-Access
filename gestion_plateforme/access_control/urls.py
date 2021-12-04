@@ -35,6 +35,9 @@ urlpatterns = [
     path('login/',  views.login, name='login'),
     path('logout/',  views.logout_block, name='logout'),
     path('liste_permission/',  views.liste_permission, name='liste_permission'),
+    path('permission/',  views.permission, name='permission'),
+    path('ajourter_permission/',  views.ajourter_permission, name='ajourter_permission'),
+    path('liste_group/',  views.liste_group, name='liste_group'),
 
 
 ]
