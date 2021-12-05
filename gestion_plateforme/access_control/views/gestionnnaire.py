@@ -33,11 +33,16 @@ def gestionnaire_metadata(key = None):
 def gestionnaire(request):
     items = Gestionnaire.objects.all()
     
-    html_data = gestionnaire_metadata()
-    html_data['data'] = items
-    html_data['url_create_full'] = reverse(html_data['url_create'])
-    
-    return render(request, 'gestionnaire.html', html_data)
+    context = gestionnaire_metadata()
+    context['data'] = items
+    context['url_create_full'] = reverse(context['url_create'])
+    context_alerte = {
+        'state': True,
+        'title': "<strong>Hello Word</strong>",
+        'message': "<strong>Hello Word</strong>"
+    }    
+    context['alert'] = context_alerte
+    return render(request, 'gestionnaire.html', context)
 
 @login_required
 def save_gestionnaire_form(request, form, template_name, template_data=None):

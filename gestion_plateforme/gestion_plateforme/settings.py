@@ -21,6 +21,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent
 LOGIN_URL = reverse_lazy("login")
 LOGIN_REDIRECT_URL = reverse_lazy("home-model")
 LOGOUT_REDIRECT_URL = reverse_lazy("login")
+USE_REMEMBER_ME = False
 
 CRISPY_TEMPLATE_PACK = 'bootstrap'
 
@@ -53,7 +54,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'widget_tweaks',
-    # 'select2',
     'access_control',
 
 ]

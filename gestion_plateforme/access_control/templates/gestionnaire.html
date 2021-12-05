@@ -136,5 +136,15 @@
 	<script src="{% static 'custom/js/gestionnaire.js' %}"></script>
 	<script>
 		
+		$(function (){
+			
+			{% if alert.state %}
+				Swal.fire({
+					title:'{{ alert.title }}!',
+					html:'{{ alert.message }}',
+					icon: 'info', //'success', //'warning, error'
+				})
+			{% endif %}
+			})
 	</script>
 {% endblock %}

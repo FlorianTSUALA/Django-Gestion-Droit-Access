@@ -1360,6 +1360,20 @@
 	<!-- EduAdmin App -->
 	<script src="js/template.js"></script>
 	<script src="js/pages/dashboard2.js"></script>
+	<script src="js/pages/dashboard2.js"></script>
+	<script>
+		(function (){
+		{% if msg_success %}
+			Swal.fire(
+			'{{ title }}!',
+			'{{ message }}',
+			'success'
+			)
+		{% endif %}
+			
+		})
+	</script>
 	
+
 </body>
 </html>

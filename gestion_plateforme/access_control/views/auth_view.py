@@ -73,7 +73,7 @@ def check_username(request):
 def user_login(request):
     redirect_to = request.POST.get(REDIRECT_FIELD_NAME, request.GET.get(REDIRECT_FIELD_NAME, reverse('gestionnaire')))
 
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         return HttpResponseRedirect(redirect_to)
 
     if request.method == "POST":
@@ -111,5 +111,6 @@ def user_login(request):
         return render(request, 'auth/auth_login.html')
 
 def user_logout(request):
-    logout(request)
-    return redirect(settings.LOGIN_REDIRECT_URL)
+    if not request.user.is_authenticated:
+        logout(request)
+    return redirect(settings.LOGIN_URL)

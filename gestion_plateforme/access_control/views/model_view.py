@@ -56,6 +56,7 @@ def search_model(request):
     context = {'results': results}
     return render(request, 'partials/model/search-results.html', context)
 
+@login_required
 def home_model(request):
     name = request.GET.get('name')
     model = Model.objects.create(name=name)
