@@ -5,6 +5,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from access_control.models import Gestionnaire
 from access_control.forms import GestionnaireForm
+from django.contrib.auth.decorators import login_required
 
 def gestionnaire_metadata(key = None):
 
@@ -28,6 +29,7 @@ def gestionnaire_metadata(key = None):
         return data
     return data.get(key, '')
 
+@login_required
 def gestionnaire(request):
     items = Gestionnaire.objects.all()
     
@@ -37,7 +39,7 @@ def gestionnaire(request):
     
     return render(request, 'gestionnaire.html', html_data)
 
-
+@login_required
 def save_gestionnaire_form(request, form, template_name, template_data=None):
     data = gestionnaire_metadata()
     if request.method == 'POST':
@@ -54,6 +56,7 @@ def save_gestionnaire_form(request, form, template_name, template_data=None):
     print("data", data)
     return JsonResponse(data)
 
+@login_required
 def gestionnaire_create(request):
     data = gestionnaire_metadata()
     
@@ -65,6 +68,7 @@ def gestionnaire_create(request):
     
     return save_gestionnaire_form(request, form, gestionnaire_metadata('path_form_create'), data)
 
+@login_required
 def gestionnaire_update(request, pk):
     gestionnaire = get_object_or_404(gestionnaire, pk=pk)
     if request.method == 'POST':
@@ -73,6 +77,7 @@ def gestionnaire_update(request, pk):
         form = GestionnaireForm(instance=gestionnaire)
     return save_gestionnaire_form(request, form, gestionnaire_metadata('path_form_update'))
 
+@login_required
 def gestionnaire_delete(request, pk):
     gestionnaire = get_object_or_404(gestionnaire, pk=pk)
     data = gestionnaire_metadata()

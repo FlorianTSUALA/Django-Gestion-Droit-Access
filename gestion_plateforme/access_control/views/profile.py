@@ -29,6 +29,15 @@ def profile_metadata(key = None):
     return data.get(key, '')
 
 
+def add_profile(request):
+    name = request.GET.get('name')
+    profile = Profile.objects.create(name=name)
+
+    # request.user.profile.add(profile)
+    profiles = Profile.objects.all()
+    return render(request, 'includes/profile-list.html',{profiles: profiles})
+
+
 
 def profile(request):
     items = Permission.objects.all()

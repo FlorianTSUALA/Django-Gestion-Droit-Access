@@ -21,7 +21,7 @@ from .managers import CompteManager
 class Compte(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True)
     name = models.CharField(max_length=70)
-    username = models.CharField(max_length=50, unique=True)
+    username = models.CharField(max_length=70, unique=True)
     telephone = models.CharField(max_length=10, unique=True)
     password = models.CharField(max_length=250, unique=True)
     is_staff = models.BooleanField(default=False)
@@ -37,16 +37,11 @@ class Compte(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.username
 
-class Profile(models.Model):
-    libelle = models.CharField(max_length=30, blank=True)
-    description = models.TextField(max_length=500, blank=True)
-
 class Gestionnaire(models.Model):
     compte = models.OneToOneField(Compte, on_delete=models.CASCADE)
     apropros = models.TextField(max_length=500, blank=True)
     residence = models.CharField(max_length=30, blank=True)
     date_naissance = models.DateField(null=True, blank=True)
-    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
 
 class Developpeur(models.Model):
     compte = models.OneToOneField(Compte, on_delete=models.CASCADE)
@@ -54,10 +49,6 @@ class Developpeur(models.Model):
     residence = models.CharField(max_length=30, blank=True)
     date_naissance = models.DateField(null=True, blank=True)
 
-
-class Permission(models.Model):
-    libelle = models.CharField(max_length=30, blank=True)
-    profile = models.ManyToManyField(Profile)
 class Profile(Group):
 
     class Meta:
@@ -76,3 +67,9 @@ class Permission(Permission):
         print("name")
         print(name)
         return name
+
+class Model(models.Model):
+    compte = models.ManyToManyField(Compte, related_name="models") # compte.models.all()
+    label = models.CharField(max_length=30, blank=True, unique=True)
+    description = models.TextField(max_length=500, blank=True)
+    statut = models.BooleanField(default=True)

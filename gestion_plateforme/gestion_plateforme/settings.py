@@ -18,8 +18,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 PROJECT_ROOT = Path(__file__).resolve().parent
 
 #Authentification
-LOGIN_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = reverse_lazy("home")
+LOGIN_URL = reverse_lazy("login")
+LOGIN_REDIRECT_URL = reverse_lazy("home-model")
 LOGOUT_REDIRECT_URL = reverse_lazy("login")
 
 CRISPY_TEMPLATE_PACK = 'bootstrap'
@@ -37,6 +37,10 @@ ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'access_control.Compte'
 
+# SESSION AGE 5 Minutes :: Default is  1209600 = 2week
+SESSION_COOKIE_AGE = 5*60
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+AUTO_LOGOUT_DELAY = 5
 
 # Application definition
 
@@ -62,6 +66,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # 'gestion_plateforme.middleware.filter_ip_middleware.FilterIPMiddleware',
 ]
 
 ROOT_URLCONF = 'gestion_plateforme.urls'
@@ -148,20 +154,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-# STATIC_URL = '/static/'
 # MEDIA_URL = '/media/'
-
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'static'),
-# ]
-
 
 STATIC_URL = '/static/'
 
 # Add these new lines
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+STATICFILES_DIRS = [ BASE_DIR / 'static', ]
+    # os.path.join(BASE_DIR, 'static'),
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 

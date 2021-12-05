@@ -1,0 +1,11 @@
+
+success{
+    color: green;
+    transition: all 2s ease
+}
+
+error{
+    color: red;
+    /* transform: rotate(45deg); */
+    transition: all ease 0.5s;
+}

@@ -1,22 +1,17 @@
-from django.contrib.auth.models import Group
 from django.shortcuts import render,redirect
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
-from access_control.models import Gestionnaire, Compte,Permission
-from access_control.forms import GestionnaireForm
 from access_control.models import Gestionnaire, Compte
 from access_control.forms import GestionnaireForm, CompteCreationForm
 import hashlib, binascii
-from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.contrib.auth import (authenticate, login, logout, get_user_model, REDIRECT_FIELD_NAME)
 from django.core.exceptions import ObjectDoesNotExist
-# from django.contrib.auth.models import User, Permission
 from django.contrib.auth.models import User, Permission
 from django.views.generic import FormView, TemplateView
 from django.urls import reverse_lazy
-from django.http import HttpResponse
-
+from django.conf import settings
 
 # # Create your views here.
 # class IndexView(TemplateView):
@@ -35,6 +30,7 @@ class RegisterView(FormView):
         return super().form_valid(form)
 
 def register(request):
+    print('registration')
     if request.method == "POST":
         username = request.POST.get('username')
         nom = request.POST.get('nom')
@@ -48,16 +44,15 @@ def register(request):
         else:
            dk = hashlib.pbkdf2_hmac('sha256', str.encode(pwd1), b'salt', 10000)
            password = binascii.hexlify(dk)
-           print(password)
-           compte= Compte(
-                email = email,
-                name = nom,
-                username = username,
-                telephone = telephone,
-                password = password
-                )
+           compte = Compte(
+                            email = email,
+                            name = nom,
+                            username = username,
+                            telephone = telephone,
+                            password = password
+                        )
            compte.save()
-           return redirect('login')
+           return redirect(settings.LOGIN_URL)
 
             # messages.error(request, 'creation de compte échouée')
             # render(request,'users/register.html',{'form':form})
@@ -68,77 +63,59 @@ def register(request):
 
 
 def check_username(request):
+    print('Request check')
     username = request.POST.get('username', None)
     if get_user_model().objects.filter(username=username).exists():
-        return HttpResponse("<div id='username-error' class='error'>This username already exists</div>")
+        return HttpResponse("<span id='username-error' class='help-block text-warning'>This username already exists</span>")
     else:
-        return HttpResponse("<div id='username-error' class='success'>This username is available</div>")
-   
+        return HttpResponse("<span id='username-error' class='help-block text-success'>This username is available</span>")
 
-def login(request):
+def user_login(request):
+    redirect_to = request.POST.get(REDIRECT_FIELD_NAME, request.GET.get(REDIRECT_FIELD_NAME, reverse('gestionnaire')))
+
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(redirect_to)
+
     if request.method == "POST":
+        
         username = request.POST.get('username')
         pwd = request.POST.get('password')
+        remember_me = request.POST.get('remember_me')
+
         try:
             utilisateur = Compte.objects.get(username=username)
         except ObjectDoesNotExist:
             message = 'Votre identifiant ou votre mot de passe est incorrect'
             return render(request,'auth/auth_login.html',{'message':message})
+        
         dk = hashlib.pbkdf2_hmac('sha256', str.encode(pwd), b'salt', 10000)
         password = binascii.hexlify(dk)
-        print(utilisateur.password)
-        print(password.decode("utf-8"))
-        if str(password)== str(utilisateur.password):
-            return redirect('gestionnaire')
+
+        print("User Active State : ", utilisateur.is_active)
+
+        if str(password) == str(utilisateur.password):
+            if  utilisateur.is_active:
+                # The default Django's "remember me" lifetime is 2 weeks and can be changed by modifying
+                # the SESSION_COOKIE_AGE settings' option.
+                if settings.USE_REMEMBER_ME:
+                    if not remember_me:
+                        request.session.set_expiry(0)
+                login(request, utilisateur)
+                return redirect(redirect_to)
+            else:
+                pass
         else:
             message = 'Votre identifiant ou votre mot de passe est incorrect'
             return render(request,'auth/auth_login.html',{'message':message})
     else:
         return render(request, 'auth/auth_login.html')
 
-def logout_block(request):
+def user_logout(request):
     logout(request)
-    return redirect('login')
-# Liste de permissions 
+    return redirect(settings.LOGIN_REDIRECT_URL)
+
 def liste_permission(request):
     perm = Permission.objects.all()
     for p in perm:
         print(p.name +' '+ p.codename)
     return render(request,'auth/auth_register.html')
-
-# Liste de group
-def liste_group(request):
-    group = Group.objects.all()
-    return render(request,'auth/liste_group.html',{'group':group})
-
-# Add Group
-
-def ajouter_group(request):
-    if request.method == "POST":
-        name = request.POST.get('name')
-        perm = Group(
-            name =  name
-        )
-        perm.save()
-    else:
-        return render(request,'permissions.html')
-    return render(request,'permissions.html')
-
-def permission(request):
-    return render(request,'permission.html')
-
-def ajourter_permission(request):
-    if request.method == "POST":
-        libele = request.POST.get('libele')
-        perm = Permission(
-            libelle =  libele
-        )
-        perm.save()
-    else:
-        return render(request,'permissions.html')
-    return render(request,'permissions.html')
-
-def delete_group(request,pk):
-    group = Group.objects.get(id=pk)
-    group.delete()
-    return 

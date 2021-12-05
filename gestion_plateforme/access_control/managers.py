@@ -1,12 +1,6 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils.translation import ugettext_lazy as _
-
-
-# class GestionnaireManager(models.Manager):
-#     def as_choices(self):
-#         for author in self.all():
-#             yield (author.pk, force_text(author))
-            
+   
 class CompteManager(BaseUserManager):
     """
     Custom user model manager where email is the unique identifiers
