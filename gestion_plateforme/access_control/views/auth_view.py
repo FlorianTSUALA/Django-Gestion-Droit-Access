@@ -113,9 +113,3 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect(settings.LOGIN_REDIRECT_URL)
-
-def liste_permission(request):
-    perm = Permission.objects.all()
-    for p in perm:
-        print(p.name +' '+ p.codename)
-    return render(request,'auth/auth_register.html')
