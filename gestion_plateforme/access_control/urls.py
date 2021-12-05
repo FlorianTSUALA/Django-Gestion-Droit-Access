@@ -65,18 +65,18 @@ urlpatterns = [
 
 
     # # # #     Gestionnaire
-    path('',  views.accueil, name='accueil'),
-    path('gestionnaire/',  views.gestionnaire, name='gestionnaire'),
-    path('gestionnaire/create/',  views.gestionnaire_create, name='gestionnaire_create'),
-    path('gestionnaire/<int:pk>/update/',  views.gestionnaire_update, name='gestionnaire_update'),
-    path('gestionnaire/<int:pk>/delete/',  views.gestionnaire_delete, name='gestionnaire_delete'),
-    path('register/',  views.register, name='register'),
-    path('login/',  views.login, name='login'),
-    path('logout/',  views.logout_block, name='logout'),
-    path('liste_permission/',  views.liste_permission, name='liste_permission'),
-    path('permission/',  views.permission, name='permission'),
-    path('ajourter_permission/',  views.ajourter_permission, name='ajourter_permission'),
-    path('liste_group/',  views.liste_group, name='liste_group'),
+    path('',  accueil, name='accueil'),
+    path('gestionnaire/',  gestionnaire, name='gestionnaire'),
+    path('gestionnaire/create/',  gestionnaire_create, name='gestionnaire_create'),
+    path('gestionnaire/<int:pk>/update/',  gestionnaire_update, name='gestionnaire_update'),
+    path('gestionnaire/<int:pk>/delete/',  gestionnaire_delete, name='gestionnaire_delete'),
+    path('register/',  register, name='register'),
+    path('login/',  login, name='login'),
+    path('logout/',  logout_block, name='logout'),
+    path('liste_permission/',  liste_permission, name='liste_permission'),
+    path('permission/',  permission, name='permission'),
+    path('ajourter_permission/',  ajourter_permission, name='ajourter_permission'),
+    path('liste_group/',  liste_group, name='liste_group'),
 
 ]
 
