@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
+{% load widget_tweaks %}
+
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -35,13 +37,15 @@
 								<p class="mb-0">Création d'un utilisateur</p>							
 							</div>
 							<div class="p-40">
-								<form method="post" action="{% url 'register' %}" >
+								<form method="post" action="{% url 'register' %}"  autocomplete='off'>
 									{% csrf_token %}
 									<div class="form-group">
 										<div class="input-group mb-3">
+											{{ form.username.errors }}
 											<span class="input-group-text bg-transparent"><i class="ti-user"></i></span>
-											<input type="text" class="form-control ps-15 bg-transparent" placeholder="Identifiant" name = "username" required>
+											{% render_field form.username class="form-control ps-15 bg-transparent" hx-post="/check_username/" hx-swap="outerhtml" hx-trigger="keyup changed" hx-target="#username-error" %}
 										</div>
+										<div id="username-error"></div>
 									</div>
 									<div class="form-group">
 										<div class="input-group mb-3">
@@ -88,7 +92,7 @@
 									  </div>
 								</form>				
 								<div class="text-center">
-									<p class="mt-15 mb-0">Already have an account?<a href="auth_login.html" class="text-danger ms-5"> Sign In</a></p>
+									<p class="mt-15 mb-0">Already have an account?<a href="{% url 'login' %}" class="text-danger ms-5"> Sign In</a></p>
 								</div>
 							</div>
 						</div>								

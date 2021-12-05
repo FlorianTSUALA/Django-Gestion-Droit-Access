@@ -76,7 +76,7 @@
 
 
 		<!-- THE MODAL WE WILL BE USING -->
-		<div class="modal fade" id="modal-gestionnaire">
+		<div class="modal center-modal fade" tabindex="-1" id="modal-gestionnaire">
 			<div class="modal-dialog">
 				<div class="modal-content">
 				
@@ -127,11 +127,14 @@
 	<!-- EduAdmin App -->
 	<script src="{% static 'template/js/template.js' %}"></script>
 	
-	<script src="{% static 'template/js/pages/advanced-form-element.js' %}"></script>
+	{% comment %} <script src="{% static 'template/js/pages/advanced-form-element.js' %}"></script> {% endcomment %}
 	
 {% endblock %}
 
 
 {% block javascript %}
 	<script src="{% static 'custom/js/gestionnaire.js' %}"></script>
+	<script>
+		
+	</script>
 {% endblock %}

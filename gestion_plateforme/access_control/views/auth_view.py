@@ -6,11 +6,33 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from access_control.models import Gestionnaire, Compte,Permission
 from access_control.forms import GestionnaireForm
+from access_control.models import Gestionnaire, Compte
+from access_control.forms import GestionnaireForm, CompteCreationForm
 import hashlib, binascii
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.core.exceptions import ObjectDoesNotExist
 # from django.contrib.auth.models import User, Permission
+from django.contrib.auth.models import User, Permission
+from django.views.generic import FormView, TemplateView
+from django.urls import reverse_lazy
+from django.http import HttpResponse
 
+
+# # Create your views here.
+# class IndexView(TemplateView):
+#     template_name = 'index.html'
+    
+# class Login(LoginView):
+#     template_name = 'registration/login.html'
+
+class RegisterView(FormView):
+    form_class = CompteCreationForm
+    template_name = 'auth/auth_register.html'
+    success_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+        form.save()  # save the user
+        return super().form_valid(form)
 
 def register(request):
     if request.method == "POST":
@@ -24,16 +46,15 @@ def register(request):
             message = 'Les mots de passes ne sont pas identique'
             return render(request,'auth/auth_register.html',{'message':message})
         else:
-        #    passwo = hashlib.sha224().hexdigest()
            dk = hashlib.pbkdf2_hmac('sha256', str.encode(pwd1), b'salt', 10000)
-           passwo = binascii.hexlify(dk)
-           print(passwo)
+           password = binascii.hexlify(dk)
+           print(password)
            compte= Compte(
                 email = email,
                 name = nom,
                 username = username,
                 telephone = telephone,
-                password = passwo
+                password = password
                 )
            compte.save()
            return redirect('login')
@@ -42,9 +63,17 @@ def register(request):
             # render(request,'users/register.html',{'form':form})
     else:
         return render(request, 'auth/auth_register.html')
+        
     return render(request,'auth/auth_register.html')
 
 
+def check_username(request):
+    username = request.POST.get('username', None)
+    if get_user_model().objects.filter(username=username).exists():
+        return HttpResponse("<div id='username-error' class='error'>This username already exists</div>")
+    else:
+        return HttpResponse("<div id='username-error' class='success'>This username is available</div>")
+   
 
 def login(request):
     if request.method == "POST":
@@ -56,16 +85,15 @@ def login(request):
             message = 'Votre identifiant ou votre mot de passe est incorrect'
             return render(request,'auth/auth_login.html',{'message':message})
         dk = hashlib.pbkdf2_hmac('sha256', str.encode(pwd), b'salt', 10000)
-        passwo = binascii.hexlify(dk)
+        password = binascii.hexlify(dk)
         print(utilisateur.password)
-        print(passwo.decode("utf-8"))
-        if str(passwo)== str(utilisateur.password):
+        print(password.decode("utf-8"))
+        if str(password)== str(utilisateur.password):
             return redirect('gestionnaire')
         else:
             message = 'Votre identifiant ou votre mot de passe est incorrect'
             return render(request,'auth/auth_login.html',{'message':message})
     else:
-        pass
         return render(request, 'auth/auth_login.html')
 
 def logout_block(request):

@@ -5,7 +5,9 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-
+from django.contrib.auth.models import Permission, Group
+from django.contrib.contenttypes.models import ContentType
+# Create your views here.
 
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
@@ -15,6 +17,7 @@ from django.utils.translation import gettext_lazy as _
 from .managers import CompteManager
 
 # Create your models here.
+
 class Compte(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True)
     name = models.CharField(max_length=70)
@@ -55,3 +58,21 @@ class Developpeur(models.Model):
 class Permission(models.Model):
     libelle = models.CharField(max_length=30, blank=True)
     profile = models.ManyToManyField(Profile)
+class Profile(Group):
+
+    class Meta:
+        proxy = True
+    
+    def __str__(self):
+        return self.name
+
+class Permission(Permission):
+
+    class Meta:
+        proxy = True
+    
+    def __str__(self):
+        name = self.name.replace('Can', 'Peut')
+        print("name")
+        print(name)
+        return name

@@ -49,7 +49,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'widget_tweaks',
+    # 'select2',
     'access_control',
+
 ]
 
 MIDDLEWARE = [
