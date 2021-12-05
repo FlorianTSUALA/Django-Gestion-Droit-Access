@@ -15,20 +15,15 @@ Including another URLconf
 """
 from django.urls import path, include, re_path
 from access_control.views import (
-    permission_view,
+
     user_login, 
     user_logout, 
     register,
     check_username,
     RegisterView,
-)
 
-from access_control.views import (
     permission,
-)
 
-
-from access_control.views import (
     gestionnaire_create, 
     gestionnaire_update, 
     gestionnaire_delete, 
@@ -79,8 +74,6 @@ urlpatterns = [
     # accounts/reset/<uidb64>/<token>/ [name='password_reset_confirm']
     # accounts/reset/done/ [name='password_reset_complete']
 
-    path('liste_permission/',  liste_permission, name='liste_permission'),
-
     # # # #     Gestionnaire
     # path('',  accueil, name='accueil'),
     path('gestionnaire/',  gestionnaire, name='gestionnaire'),
@@ -88,10 +81,8 @@ urlpatterns = [
     path('gestionnaire/<int:pk>/update/',  gestionnaire_update, name='gestionnaire_update'),
     path('gestionnaire/<int:pk>/delete/',  gestionnaire_delete, name='gestionnaire_delete'),
     path('register/',  register, name='register'),
-    path('liste_permission/',  liste_permission, name='liste_permission'),
 
-    path('permission/',  permission_view, name='permission'),
-    path('ajourter_permission/',  ajourter_permission, name='ajourter_permission'),
+    path('permission/',  permission, name='permission'),
     path('liste_group/',  liste_group, name='liste_group'),
 
 ]
