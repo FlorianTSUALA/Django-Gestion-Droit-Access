@@ -13,10 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path, include
+from django.urls import path, include, re_path
 from access_control.views import (
-    login, 
-    logout_block, 
+    user_login, 
+    user_logout, 
     register,
     check_username,
     RegisterView,
@@ -38,6 +38,14 @@ from access_control.views import (
     profile_delete, 
     profile,
 
+    ModelIndexView,
+    home_model,    
+    check_libelle,
+    search_model,
+    add_model,
+    update_model,
+    delete_model,
+
 )
 
 
@@ -55,20 +63,34 @@ urlpatterns = [
     path('profile/<int:pk>/update/',  profile_update, name='profile_update'),
     path('profile/<int:pk>/delete/',  profile_delete, name='profile_delete'),
     
-    path('register/',  RegisterView.as_view(), name="register"),
-    # path('register/',  register, name='register'),
-    path('login/',  login, name='login'),
-    path('logout/',  logout_block, name='logout'),
-    
+    # path('register/',  RegisterView.as_view(), name="register"),
+    path('register/',  register, name='register'),
+    path('login/',  user_login, name='login'),
+    path('logout/',  user_logout, name='logout'),
+    # accounts/login/ [name='login']
+    # accounts/logout/ [name='logout']
+    # accounts/password_change/ [name='password_change']
+    # accounts/password_change/done/ [name='password_change_done']
+    # accounts/password_reset/ [name='password_reset']
+    # accounts/password_reset/done/ [name='password_reset_done']
+    # accounts/reset/<uidb64>/<token>/ [name='password_reset_confirm']
+    # accounts/reset/done/ [name='password_reset_complete']
+
     path('liste_permission/',  liste_permission, name='liste_permission'),
-
-
 
 ]
 
 
 htmx_urlpatterns = [
-    path('check_username/', check_username, name='check-username')
+    path('check_username/', check_username, name='check-username'),
+
+    path('model/home/',  ModelIndexView.as_view(), name='home-model'),
+    path('model/search/',  search_model, name='search-model'),
+    path('model/add/',  add_model, name='add-model'),
+    path('model/check/libelle', check_libelle, name='check-model'),
+    path('model/update/<int:pk>/',  update_model, name='update-model'),
+    path('model/delete/<int:pk>/',  delete_model, name='delete-model'),
+
 ]
 
 urlpatterns += htmx_urlpatterns

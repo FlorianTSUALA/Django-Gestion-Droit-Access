@@ -1,0 +1,63 @@
+{% if profiles %}
+<div class="box-body py-0">
+    <div class="table-responsive">
+        <table class="table no-border">
+            <thead>
+                <tr class="text-start">
+                    <th class="text-center p-0" style="width: 50px">N°</th>
+                    <th class=" p-0" style="min-width: 200px">Role</th>
+                    <th class="p-0" style="min-width: 600px">Permissions associées</th>
+                    <th class="text-center p-0" style="min-width: 100px">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="list-profile">
+                {% for profile in profiles %}
+                <tr>										
+                    <td>
+                        <div class="bg-lightest h-50 w-50 l-h-50 rounded text-center">
+                              <img src="../images/svg-icon/color-svg/007-color-palette.svg" class="h-30" alt="">
+                        </div>
+                    </td>
+                    <td>
+                        <a href="#" class="text-dark fw-600 hover-primary fs-16">{{profile.name}}</a>
+                        <span class="text-fade d-block">----------------------</span>
+                    </td>
+                    
+                
+                    <td class="text-start">
+                        {% for permission in profile.permissions %}
+                            <span class="badge badge-danger-light">{{permission}}</span>
+                            {% comment %} <span class="badge badge-secondary-light">Approved</span><span class="badge badge-warning-light">Approved</span><span class="badge badge-success-light">Approved</span><span class="badge badge-primary-light">Approved</span> {% endcomment %}
+                        {% endfor %}
+                    </td>
+                    <td class="text-end">
+                        <a href="#" data-id="{{ profile.pk }}" class="waves-effect waves-light btn btn-primary-light btn-circle mx-5"><span class="icon-Write"><span class="path1"></span><span class="path2"></span></span></a>
+                        <a href="#" class="waves-effect waves-light btn btn-primary-light btn-circle"><span class="icon-Trash1 fs-18"><span class="path1"></span><span class="path2"></span></span></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+    <div class="col-12">
+        <div class="box">
+            <div class="box-header">
+                <h4 class="box-title align-items-start flex-column">
+                    Inventaires des roles du système
+                    <small class="subtitle"> (x) Role(s) existants impliquant (y) permission(s) </small>
+                </h4>
+            </div>
+            
+            <div class="card box box-inverse box-warning">
+                <div class="card-header">
+                  <h4 class="card-title text-center"> Oups  !!!</h4>
+                  <h4 class="card-subtitle"> <code>Aucune donnée disponible</code></h4>
+                </div>
+            </div>
+
+            
+        </div>  
+    </div>
+{% endif %}

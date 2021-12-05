@@ -37,7 +37,6 @@ class Compte(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.username
 
-
 class Gestionnaire(models.Model):
     compte = models.OneToOneField(Compte, on_delete=models.CASCADE)
     apropros = models.TextField(max_length=500, blank=True)
@@ -68,3 +67,9 @@ class Permission(Permission):
         print("name")
         print(name)
         return name
+
+class Model(models.Model):
+    compte = models.ManyToManyField(Compte, related_name="models") # compte.models.all()
+    label = models.CharField(max_length=30, blank=True, unique=True)
+    description = models.TextField(max_length=500, blank=True)
+    statut = models.BooleanField(default=True)

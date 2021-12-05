@@ -11,7 +11,7 @@
     <meta name="author" content="">
     <link rel="icon" href="{% static 'template/images/favicon.ico'%}">
 
-    <title>EduAdmin - Registration </title>
+    <title>VOICE IA - Creation de Compte </title>
   
 	<!-- Vendors Style-->
 	<link rel="stylesheet" href="{% static 'template/css/vendors_css.css'%}">
@@ -33,24 +33,30 @@
 						<div class="bg-white rounded10 shadow-lg">
 							<div class="content-top-agile p-20 pb-0">
 								<h2 class="text-primary">{{message}}</h2>
-								<h2 class="text-primary">WELCOME</h2>
+								{% comment %} <h2 class="text-primary">{{message_bienvenue | join ', '}}</h2> {% endcomment %}
 								<p class="mb-0">Création d'un utilisateur</p>							
 							</div>
 							<div class="p-40">
-								<form method="post" action="{% url 'register' %}"  autocomplete='off'>
+								<form method="post" action="{% url 'register' %}" >
+								{% comment %} <form method="post" action="{% url 'register' %}"  autocomplete='off'> {% endcomment %}
 									{% csrf_token %}
 									<div class="form-group">
 										<div class="input-group mb-3">
-											{{ form.username.errors }}
+											{% comment %} {{ form.username.errors }}
 											<span class="input-group-text bg-transparent"><i class="ti-user"></i></span>
-											{% render_field form.username class="form-control ps-15 bg-transparent" hx-post="/check_username/" hx-swap="outerhtml" hx-trigger="keyup changed" hx-target="#username-error" %}
+											{% url 'check-username' as check_username  %}
+											{% if check_username %}
+												{% render_field form.username class="form-control ps-15 bg-transparent" hx-post=check_username hx-swap="outerhtml" hx-trigger="keyup changed" hx-target="#username-error" %}
+											{% endif %} {% endcomment %}
+											<span class="input-group-text bg-transparent"><i class="ti-user"></i></span>
+											<input type="text" class="form-control ps-15 bg-transparent" hx-post="{% url 'check-username' %}" hx-swap="outerhtml" hx-trigger="keyup changed" hx-target="#username-error" placeholder="Nom d'utilidateur" name="username">
 										</div>
 										<div id="username-error"></div>
 									</div>
 									<div class="form-group">
 										<div class="input-group mb-3">
 											<span class="input-group-text bg-transparent"><i class="ti-user"></i></span>
-											<input type="text" class="form-control ps-15 bg-transparent" placeholder="Nom d'utilidateur" name = "nom">
+											<input type="text" class="form-control ps-15 bg-transparent" placeholder="Nom d'utilidateur" name="nom">
 										</div>
 									</div>
 									<div class="form-group">
@@ -62,7 +68,7 @@
 									<div class="form-group">
 										<div class="input-group mb-3">
 											<span class="input-group-text bg-transparent"><i class="ti-user"></i></span>
-											<input type="tel" class="form-control ps-15 bg-transparent" placeholder="Numéro de téléphone" name = "telephone">
+											<input type="tel" class="form-control ps-15 bg-transparent" placeholder="Numéro de téléphone" name="telephone">
 										</div>
 									</div>
 									<div class="form-group">
@@ -81,24 +87,24 @@
 										<div class="col-12">
 										  <div class="checkbox">
 											<input type="checkbox" id="basic_checkbox_1" >
-											<label for="basic_checkbox_1">I agree to the <a href="#" class="text-warning"><b>Terms</b></a></label>
+											<label for="basic_checkbox_1">Je suis d'accord avec les <a href="#" class="text-warning"><b>termes </b></a> de confidentialité et d'utilisation des données.</label>
 										  </div>
 										</div>
 										<!-- /.col -->
 										<div class="col-12 text-center">
-										  <button type="submit" class="btn btn-info margin-top-10">SIGN IN</button>
+										  <button type="submit" class="btn btn-info margin-top-10">Je m'inscris</button>
 										</div>
 										<!-- /.col -->
 									  </div>
 								</form>				
 								<div class="text-center">
-									<p class="mt-15 mb-0">Already have an account?<a href="{% url 'login' %}" class="text-danger ms-5"> Sign In</a></p>
+									<p class="mt-15 mb-0">Avez vous déja un compte ?<a href="{% url 'login' %}" class="text-danger ms-5"> Se connecter</a></p>
 								</div>
 							</div>
 						</div>								
 
 						<div class="text-center">
-						  <p class="mt-20 text-white">- Register With -</p>
+						  <p class="mt-20 text-white">- S'inscrire via -</p>
 						  <p class="gap-items-2 mb-20">
 							  <a class="btn btn-social-icon btn-round btn-facebook" href="#"><i class="fa fa-facebook"></i></a>
 							  <a class="btn btn-social-icon btn-round btn-twitter" href="#"><i class="fa fa-twitter"></i></a>
@@ -116,6 +122,7 @@
 	<script src="{% static 'template/js/vendors.min.js'%}"></script>
 	<script src="{% static 'template/js/pages/chat-popup.js'%}"></script>
     <script src="{% static 'template/assets/icons/feather-icons/feather.min.js'%}"></script>	
+	<script src="{% static 'template/js/htmx.min.js' %}"></script>
 	
 	
 </body>

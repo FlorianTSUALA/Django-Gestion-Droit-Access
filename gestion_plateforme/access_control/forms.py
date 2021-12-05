@@ -6,16 +6,15 @@ from django.contrib.admin import widgets
 from django.forms.widgets import NumberInput
 
 class CompteCreationForm(UserCreationForm):
-
+    
     class Meta:
         model = Compte
-        fields = ('username', 'telephone', 'email', 'name')
+        fields = ['username', 'telephone', 'email', 'name', 'password1', 'password2']
 
     def __init__(self, *args, **kwargs):
         super(CompteCreationForm, self).__init__(*args, **kwargs)
         
         self.fields['username'].widget.attrs['placeholder'] = 'Login'
-
 
 class CompteChangeForm(UserChangeForm):
 
